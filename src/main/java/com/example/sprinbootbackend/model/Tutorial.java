@@ -4,6 +4,9 @@ package com.example.sprinbootbackend.model;
 
 import javax.persistence.*;
 
+import static com.example.sprinbootbackend.constants.Constants.*;
+import static com.example.sprinbootbackend.constants.Constants.BMI_OBESITY_CLASS_THREE;
+
 @Entity
 @Table(name = "tutorials")
 public class Tutorial {
@@ -28,6 +31,11 @@ public class Tutorial {
 
     @Column(name= "weight")
     private double weight;
+
+
+
+    @Column(name = "bmi")
+    private double bmi;
 
     public Tutorial() {
 
@@ -85,9 +93,49 @@ public class Tutorial {
         this.weight = weight;
     }
 
+
+
+    public void setBmi(double bmi) {
+        this.bmi = bmi;
+    }
+
+    public double getBmi() {
+        double bmi = this.weight / Math.pow((this.height / 100), 2);
+
+        return Math.round(bmi * 10) / 10.0;
+
+    }
+
+    public String calculateBmi(double bmi) {
+
+        if (this.bmi < 19) {
+            return BMI_UNDERWEIGHT;
+        }
+
+        if (this.bmi >= 19 && this.bmi < 25) {
+            return BMI_NORMAL;
+        }
+
+        if (this.bmi >= 25 && this.bmi < 30) {
+            return BMI_OVERWEIGHT;
+        }
+
+        if (this.bmi >= 30 && this.bmi < 35) {
+            return BMI_OBESITY_CLASS_ONE;
+        }
+
+        if (this.bmi >= 35 && this.bmi < 40) {
+            return BMI_OBESITY_CLASS_TWO;
+        }
+
+        return BMI_OBESITY_CLASS_THREE;
+    }
+
+
+
     @Override
     public String toString() {
-        return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + ",height="+ height + ",weight=" + weight +  "]";
+        return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + ",height="+ height + ",weight=" + weight + ",bmi=" + bmi+  "]";
     }
 
 }

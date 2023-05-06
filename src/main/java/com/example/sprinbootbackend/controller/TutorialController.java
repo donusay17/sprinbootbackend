@@ -9,6 +9,7 @@ import com.example.sprinbootbackend.repository.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,6 +84,7 @@ public class TutorialController {
             _tutorial.setPublished(tutorial.isPublished());
             _tutorial.setHeight(tutorial.getHeight());
             _tutorial.setWeight(tutorial.getWeight());
+            _tutorial.setBmi(tutorial.getBmi());
             return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
