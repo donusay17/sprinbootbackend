@@ -7,5 +7,4 @@ public class Constants {
     public static String BMI_OBESITY_CLASS_ONE = "Obesity class 1";
     public static String BMI_OBESITY_CLASS_TWO = "Obesity class 2";
     public static String BMI_OBESITY_CLASS_THREE = "Obesity class 3";
-
 }

@@ -131,7 +131,6 @@ public class Tutorial {
         return BMI_OBESITY_CLASS_THREE;
     }
 
-
     @Override
     public String toString() {
         return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + ",height="+ height + ",weight=" + weight + ",bmi=" + bmi+  "]";

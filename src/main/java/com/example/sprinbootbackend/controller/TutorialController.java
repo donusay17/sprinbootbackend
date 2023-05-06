@@ -111,7 +111,6 @@ public class TutorialController {
         }
 
     }
-
     @GetMapping("/tutorials/published")
     public ResponseEntity<List<Tutorial>> findByPublished() {
         try {
