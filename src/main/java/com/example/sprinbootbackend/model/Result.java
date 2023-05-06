@@ -4,7 +4,6 @@ import lombok.Data;
 
 import static com.example.sprinbootbackend.constants.Constants.*;
 
-
 @Data
 public class Result {
     double bmi;
