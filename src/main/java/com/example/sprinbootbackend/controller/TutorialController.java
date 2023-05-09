@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.sprinbootbackend.model.Tutorial;
+import com.example.sprinbootbackend.model.User;
 import com.example.sprinbootbackend.repository.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,20 +22,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin() //origins = "http://localhost:8081"
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
 
+    //aşağıda normalde yukarı aldım.
+    List<Tutorial> tutorials = new ArrayList<Tutorial>();
     @Autowired
     TutorialRepository tutorialRepository;
 
     @GetMapping("/tutorials")
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
         try {
-            List<Tutorial> tutorials = new ArrayList<Tutorial>();
+
 
             if (title == null)
                 tutorialRepository.findAll().forEach(tutorials::add);
@@ -50,7 +51,6 @@ public class TutorialController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @GetMapping("/tutorials/{id}")
     public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
         Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
@@ -110,6 +110,20 @@ public class TutorialController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //yeni eklendi kullanıcı girişi için. Ayrıca User model de yeni oluşturuldu.
+    @GetMapping(produces = "application/json")
+    @RequestMapping({ "/validateLogin" })
+    public User validateLogin() {
+        return new User("User successfully authenticated");
+    }
+
+    @PostMapping
+    public Tutorial create(@RequestBody Tutorial user) {
+       tutorials.add(user);
+        return user;
+    }
+
     @GetMapping("/tutorials/published")
     public ResponseEntity<List<Tutorial>> findByPublished() {
         try {
